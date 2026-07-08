@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaozhou Yuyu Hotel | 潮州愉羽酒店</title>
+<style>
+  :root{
+    --gold:#b98a3d;
+    --gold-light:#d4af6a;
+    --dark:#1c1c1c;
+    --gray:#666;
+    --bg:#faf8f5;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:"Noto Serif SC","Songti SC","PingFang SC","Microsoft YaHei",serif;
+    color:var(--dark);
+    background:var(--bg);
+    line-height:1.7;
+  }
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+
+  header{
+    position:fixed;top:0;left:0;width:100%;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 6%;
+    background:rgba(255,255,255,0.96);
+    z-index:999;
+    box-shadow:0 2px 16px rgba(0,0,0,0.08);
+    border-bottom:2px solid var(--gold);
+  }
+  nav ul{display:flex;gap:28px;font-size:14px;flex-wrap:wrap;}
+  nav ul li a{position:relative;padding-bottom:4px;}
+  nav ul li a::after{
+    content:"";position:absolute;bottom:0;left:0;width:0;height:1px;
+    background:var(--gold);transition:width .3s;
+  }
+  nav ul li a:hover{color:var(--gold);}
+  nav ul li a:hover::after{width:100%;}
+  .lang-btn{
+    border:1px solid var(--gold);color:var(--gold);
+    padding:6px 14px;border-radius:20px;font-size:13px;
+    cursor:pointer;background:none;letter-spacing:1px;
+    transition:all .3s;
+  }
+  .lang-btn:hover{background:var(--gold);color:#fff;box-shadow:0 4px 12px rgba(185,138,61,0.35);}
+  .nav-right{display:flex;align-items:center;gap:24px;}
+
+  .hero{
+    height:100vh;min-height:600px;
+    background:url('images/hero/1.jpg') center 50%/cover no-repeat;
+    position:relative;
+  }
+  .hero::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(0,0,0,0.15),rgba(0,0,0,0.35));
+  }
+  .scroll-hint{
+    position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+    color:#fff;font-size:13px;letter-spacing:2px;z-index:2;opacity:0.85;
+    text-shadow:0 2px 8px rgba(0,0,0,0.5);
+  }
+
+  section{padding:100px 6%;}
+  .section-title{text-align:center;margin-bottom:60px;}
+  .section-title h2{font-size:30px;letter-spacing:3px;margin-bottom:12px;}
+  .section-title .en{font-size:13px;color:var(--gray);letter-spacing:3px;text-transform:uppercase;}
+  .section-title .line{
+    width:50px;height:1px;background:var(--gold);margin:18px auto 0;
+    position:relative;
+  }
+  .section-title .line::after{
+    content:"";position:absolute;top:-3px;left:50%;transform:translateX(-50%) rotate(45deg);
+    width:7px;height:7px;background:var(--gold);
+  }
+
+  .stars-badge{text-align:center;margin-bottom:16px;}
+  .stars-badge .stars{color:var(--gold);font-size:28px;letter-spacing:6px;}
+  .stars-badge p{font-size:12px;color:var(--gray);letter-spacing:2px;margin-top:6px;}
+
+  .about-intro{max-width:760px;margin:0 auto 60px;text-align:center;font-size:16px;color:#444;}
+  .room-intro{max-width:760px;margin:0 auto 50px;text-align:center;font-size:16px;color:#444;}
+
+  .features{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;max-width:1100px;margin:0 auto;}
+  .feature-card{
+    background:linear-gradient(135deg, #ffffff 0%, #faf5ec 100%);
+    padding:44px 28px;text-align:center;
+    border-radius:8px;box-shadow:0 12px 32px rgba(0,0,0,0.07);
+    border-top:3px solid var(--gold);
+    transition:transform .35s, box-shadow .35s;
+  }
+  .feature-card:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(0,0,0,0.12);}
+  .feature-icon{
+    width:60px;height:60px;margin:0 auto 22px;
+    border:1px solid var(--gold);border-radius:50%;
+    background:rgba(185,138,61,0.08);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--gold);font-size:24px;
+    box-shadow:0 4px 14px rgba(185,138,61,0.15);
+  }
+  .feature-card h3{font-size:18px;margin-bottom:10px;letter-spacing:1px;}
+  .feature-card p{font-size:14px;color:var(--gray);}
+
+  .gallery{background:#fff;}
+  .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:14px;max-width:1200px;margin:0 auto;}
+  .gallery-grid img{width:100%;height:100%;object-fit:cover;border-radius:6px;transition:transform .4s;}
+  .gallery-grid a{
+    overflow:hidden;border-radius:6px;display:block;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+  }
+  .gallery-grid a:hover img{transform:scale(1.08);}
+  .g-big{grid-column:span 2;grid-row:span 2;}
+
+  .room-types{background:var(--bg);}
+  .room-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:1200px;margin:0 auto;}
+  .room-card{
+    border-radius:8px;overflow:hidden;
+    box-shadow:0 12px 32px rgba(0,0,0,0.08);
+    background:#fff;
+    border:1px solid rgba(185,138,61,0.12);
+    transition:transform .35s, box-shadow .35s;
+  }
+  .room-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,0.14);}
+  .room-card img{width:100%;height:220px;object-fit:cover;display:block;cursor:pointer;}
+  .room-card-body{padding:24px;}
+  .room-card-body h3{font-size:17px;margin-bottom:4px;}
+  .room-card-body .slogan{font-size:13px;color:var(--gold);margin-bottom:12px;letter-spacing:1px;}
+  .room-card-body p{font-size:14px;color:#555;margin-bottom:14px;}
+  .video-link{
+    font-size:13px;color:var(--gold);border:1px solid var(--gold);
+    padding:6px 16px;border-radius:16px;display:inline-block;
+    transition:all .3s;
+  }
+  .video-link:hover{background:var(--gold);color:#fff;box-shadow:0 6px 16px rgba(185,138,61,0.3);}
+
+  .room-thumbs{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;}
+  .room-thumbs img{
+    width:44px;height:44px;object-fit:cover;border-radius:4px;
+    cursor:pointer;opacity:0.6;transition:opacity .25s,box-shadow .25s;
+    border:1px solid rgba(185,138,61,0.2);
+  }
+  .room-thumbs img:hover,
+  .room-thumbs img.active{
+    opacity:1;box-shadow:0 0 0 2px var(--gold);
+  }
+
+  .lightbox{
+    display:none;position:fixed;inset:0;z-index:2000;
+    background:rgba(0,0,0,0.85);
+    align-items:center;justify-content:center;
+    padding:40px;
+  }
+  .lightbox.active{display:flex;}
+  .lightbox img{
+    max-width:90%;max-height:90%;
+    border-radius:6px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.5);
+    cursor:default;
+  }
+  .lightbox-close{
+    position:absolute;top:24px;right:36px;
+    color:#fff;font-size:32px;cursor:pointer;
+    line-height:1;opacity:0.8;
+  }
+  .lightbox-close:hover{opacity:1;}
+
+  .facilities-list{display:grid;grid-template-columns:repeat(4,1fr);gap:36px 30px;max-width:1100px;margin:0 auto;text-align:center;}
+  .facilities-list li{font-size:15px;color:#444;}
+  .facilities-list li .ico{
+    width:50px;height:50px;margin:0 auto 12px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:22px;color:var(--gold);
+    border:1px solid var(--gold);border-radius:50%;
+    box-shadow:0 4px 12px rgba(185,138,61,0.12);
+  }
+
+  .location{background:#fff;}
+  .loc-wrap{display:flex;justify-content:center;max-width:700px;margin:0 auto;}
+  .loc-info{
+    flex:1;background:var(--bg);padding:44px;border-radius:8px;
+    box-shadow:0 12px 32px rgba(0,0,0,0.06);
+    border-top:3px solid var(--gold);text-align:center;
+  }
+  .loc-info h3{font-size:20px;margin-bottom:24px;}
+  .loc-info p{margin-bottom:12px;color:#444;font-size:15px;}
+
+  footer{background:var(--dark);color:#ccc;text-align:center;padding:50px 6% 30px;font-size:13px;}
+  footer p{margin-bottom:6px;}
+  footer .foot-links{margin:16px 0;}
+  footer .foot-links a{margin:0 10px;color:#ccc;}
+  footer .foot-links a:hover{color:var(--gold);}
+
+  /* Culture Carousel */
+  .culture-carousel-wrap{max-width:100%;overflow:hidden;padding:20px 0 10px;}
+  .culture-carousel{
+    display:flex;gap:24px;overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    padding:20px calc(50% - 110px);
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .culture-carousel::-webkit-scrollbar{display:none;}
+  .culture-item{
+    flex:0 0 220px;scroll-snap-align:center;
+    cursor:pointer;
+    transition:transform .35s ease, opacity .35s ease, filter .35s ease;
+    transform:scale(0.75);opacity:0.35;filter:grayscale(40%);
+  }
+  .culture-item.center{
+    transform:scale(1);opacity:1;filter:grayscale(0%);
+  }
+  .culture-item img{
+    width:220px;height:280px;object-fit:cover;border-radius:8px;
+    box-shadow:0 16px 40px rgba(0,0,0,0.18);display:block;
+  }
+  .culture-caption{
+    text-align:center;margin-top:12px;font-size:13px;letter-spacing:1px;color:var(--dark);
+  }
+  .culture-hint{
+    text-align:center;font-size:12px;color:var(--gray);letter-spacing:1px;margin-top:20px;
+  }
+
+  .en-text{display:block;}
+  .zh-text{display:none;}
+  body.lang-zh .en-text{display:none;}
+  body.lang-zh .zh-text{display:block;}
+  body.lang-zh span.zh-text{display:inline;}
+  span.en-text{display:inline;}
+
+  @media(max-width:900px){
+    nav{display:none;}
+    .features{grid-template-columns:1fr;}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);}
+    .g-big{grid-column:span 2;grid-row:span 1;}
+    .room-grid{grid-template-columns:1fr;}
+    .facilities-list{grid-template-columns:repeat(2,1fr);}
+    .culture-carousel{padding:20px calc(50% - 90px);}
+    .culture-item{flex:0 0 180px;}
+    .culture-item img{width:180px;height:230px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo" style="display:flex;align-items:center;gap:14px;">
+    <img src="images/logo/1.png" alt="Yuyu Hotel Logo" style="height:36px;width:auto;">
+    <div style="width:1px;height:26px;background:rgba(185,138,61,0.3);"></div>
+    <img src="images/logo/whiteswan.png" alt="White Swan Hotel Management Logo" style="height:30px;width:auto;">
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#about"><span class="en-text">About</span><span class="zh-text">酒店简介</span></a></li>
+      <li><a href="#gallery"><span class="en-text">Gallery</span><span class="zh-text">环境展示</span></a></li>
+      <li><a href="#rooms"><span class="en-text">Rooms</span><span class="zh-text">房型展示</span></a></li>
+      <li><a href="#dining"><span class="en-text">Dining</span><span class="zh-text">餐饮展示</span></a></li>
+      <li><a href="#culture"><span class="en-text">Culture</span><span class="zh-text">文旅美食</span></a></li>
+      <li><a href="#facilities"><span class="en-text">Facilities</span><span class="zh-text">设施服务</span></a></li>
+      <li><a href="#location"><span class="en-text">Contact</span><span class="zh-text">联系我们</span></a></li>
+    </ul>
+  </nav>
+  <div class="nav-right">
+    <button class="lang-btn" onclick="toggleLang()">
+      <span class="en-text">中文</span>
+      <span class="zh-text">EN</span>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="scroll-hint">
+    <span class="en-text">SCROLL DOWN</span>
+    <span class="zh-text">向下滑动了解更多</span>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-title">
+    <h2><span class="en-text">About Us</span><span class="zh-text">酒店简介</span></h2>
+    <div class="en en-text">ABOUT US</div>
+    <div class="line"></div>
+  </div>
+
+  <div class="stars-badge">
+    <span class="stars">☆☆☆☆☆</span>
+    <p>
+      <span class="en-text">DESIGNED &amp; APPOINTED TO 5-STAR STANDARDS</span>
+      <span class="zh-text">按五星标准设计与配置</span>
+    </p>
+  </div>
+
+  <div class="about-intro">
+    <p class="en-text">
+      Located in Xiangqiao District, Chaozhou — a renowned historical and cultural city recognized as one of
+      China's top tourist destinations — Yuyu Hotel opened in 2024 and is fully operated by Guangzhou White
+      Swan Hotel Management. As one of China's most established 5-star hospitality groups, White Swan brings
+      its mature service system and refined operational philosophy to every detail, ensuring guests enjoy a
+      level of hospitality on par with international standards.
+      The hotel's interiors are designed by the China Academy of Art, blending contemporary urban aesthetics
+      with the cultural essence of Chaozhou's millennia-old heritage. From spatial layout to material selection,
+      from craftsmanship to furnishings, every element is meticulously crafted to a five-star standard, offering
+      both visual refinement and everyday comfort.
+      Whether for a family getaway or a business trip, Yuyu Hotel delivers an elevated experience defined by
+      quality, ease, and warmth in every stay.
+    </p>
+    <p class="zh-text">
+      潮州愉羽酒店位于中国广东省潮州市湘桥区。潮州市是中国历史名城、中国优秀旅游城市。酒店于2024年开业,
+      由广州白天鹅酒店管理公司全程运营管理。作为国内深具底蕴的五星级酒店管理集团,白天鹅以国际化五星标准为蓝本,
+      将成熟的服务体系与精细化运营理念注入其中,确保每一位宾客都能享受到媲美国际水准的尊崇礼遇。
+      酒店空间设计由中国美术学院担纲执笔,在都市现代美学的基调之上,巧妙融汇潮州本土的人文意蕴与在地精神,
+      令当代设计语言与千年古城气质相映成趣。从空间布局到材质遴选,从工艺细部到陈设配套,均严格遵循五星级标准精雕细琢,
+      兼具视觉品位与使用舒适。
+      无论是家庭亲子出游,还是商务差旅下榻,愉羽酒店都将以更高规格的品质体验,为每一次停留赋予从容与温度。
+    </p>
+  </div>
+
+  <div class="features">
+    <div class="feature-card">
+      <div class="feature-icon">★</div>
+      <h3><span class="en-text">Quality Endorsement</span><span class="zh-text">品质背书</span></h3>
+      <p class="en-text">Operated by Guangzhou White Swan Hotel Management, aligned with international 5-star service standards</p>
+      <p class="zh-text">广州白天鹅酒店管理运营,服务标准对标国际五星水准</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⌂</div>
+      <h3><span class="en-text">Diverse Room Types</span><span class="zh-text">多元化房型</span></h3>
+      <p class="en-text">Six room types crafted for both family travelers and business guests</p>
+      <p class="zh-text">兼顾家庭出行与商务差旅,六大房型满足不同需求</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">✎</div>
+      <h3><span class="en-text">5-Star Design Standard</span><span class="zh-text">五星设计规格</span></h3>
+      <p class="en-text">Interiors by China Academy of Art, with materials and craftsmanship carefully selected to a five-star standard</p>
+      <p class="zh-text">中国美术学院操刀空间设计,用料工艺按五星标准精选打造</p>
+    </div>
+  </div>
+</section>
+
+<section id="gallery" class="gallery">
+  <div class="section-title">
+    <h2><span class="en-text">Hotel Gallery</span><span class="zh-text">环境展示</span></h2>
+    <div class="en en-text">GALLERY</div>
+    <div class="line"></div>
+  </div>
+
+  <div class="gallery-grid">
+    <a href="javascript:void(0)" onclick="openLightbox(galleryImages, 0)" class="g-big"><img src="images/lobby/1.jpg" alt="Lobby"></a>
+    <a href="javascript:void(0)" onclick="openLightbox(galleryImages, 1)"><img src="images/hero/1.jpg" alt="Exterior"></a>
+    <a href="javascript:void(0)" onclick="openLightbox(galleryImages, 2)"><img src="images/restaurant/1.jpg" alt="Restaurant"></a>
+    <a href="javascript:void(0)" onclick="openLightbox(galleryImages, 3)"><img src="images/meeting-room/1.jpg" alt="Meeting Room"></a>
+    <a href="javascript:void(0)" onclick="openLightbox(galleryImages, 4)"><img src="images/book-bar/1.jpg" alt="Book Bar"></a>
+    <a href="javascript:void(0)" onclick="openLightbox(galleryImages, 5)"><img src="images/coffee-bar/1.jpg" alt="Coffee Bar"></a>
+    <a href="javascript:void(0)" onclick="openLightbox(galleryImages, 6)"><img src="images/laundry-room/1.jpg" alt="Laundry Room"></a>
+    <a href="javascript:void(0)" onclick="openLightbox(galleryImages, 7)"><img src="images/kids-play-area/1.jpg" alt="Kids Play Area"></a>
+    <a href="javascript:void(0)" onclick="openLightbox(galleryImages, 8)"><img src="images/guest-lounge/1.jpg" alt="Guest Lounge"></a>
+  </div>
+</section>
+
+<section id="rooms" class="room-types">
+  <div class="section-title">
+    <h2><span class="en-text">Room Types</span><span class="zh-text">房型展示</span></h2>
+    <div class="en en-text">ROOM TYPES</div>
+    <div class="line"></div>
+  </div>
+
+  <div class="room-intro">
+    <p class="en-text">
+      Yuyu Hotel features 158 individually styled guestrooms, including Deluxe Twin Rooms, Deluxe King Rooms,
+      Family Rooms and Executive Suites, catering to a wide range of traveler needs. All rooms are non-smoking,
+      bright and spacious, each with its own window for abundant natural light and open views. Standard rooms
+      measure approximately 35 square meters, offering a comfortable and well-proportioned layout. Rooms are
+      equipped with smart controls for lighting, temperature and curtains, and bedding is changed for every
+      guest — soft, skin-friendly linens that ensure a clean and restful night's sleep.
+    </p>
+    <p class="zh-text">
+      愉羽酒店拥有158间套风格各异的客房,涵盖豪华双床房、豪华大床房、亲子家庭房及行政套房等多种房型,
+      全面满足不同宾客的出行需求。全房型均为无烟客房,空间宽敞明亮,每间均配有独立窗户,采光通透,视野开阔。
+      基础房型面积约达35平方米,布局舒展,尺度宜人。房间内配备高端智能化设施,从灯光、温控到窗帘系统均可便捷操控;
+      床品坚持一客一换,以柔软亲肤的质地与洁净安心的承诺,守护每一位宾客的舒眠之夜。
+    </p>
+  </div>
+
+  <div class="room-grid">
+
+    <div class="room-card">
+      <img id="img-executive-suite" src="images/executive-suite/1.jpg" alt="Executive Suite" data-index="0" onclick="openLightbox(executiveSuiteImages, parseInt(this.dataset.index))">
+      <div class="room-card-body">
+        <h3><span class="en-text">Executive Suite</span><span class="zh-text">尊享套房</span></h3>
+        <div class="slogan"><span class="en-text">Private Lounge, Exclusive Comfort</span><span class="zh-text">行政会客厅·尊贵私享</span></div>
+        <p class="en-text">A private lounge for meetings and rest — the refined choice for discerning business guests.</p>
+        <p class="zh-text">独立会客空间,尊享私密洽谈与休憩,商务贵宾的品质之选。</p>
+        <div class="room-thumbs">
+          <img src="images/executive-suite/1.jpg" class="active" onclick="switchRoomImg(this,'img-executive-suite')">
+          <img src="images/executive-suite/2.jpg" onclick="switchRoomImg(this,'img-executive-suite')">
+          <img src="images/executive-suite/3.jpg" onclick="switchRoomImg(this,'img-executive-suite')">
+          <img src="images/executive-suite/4.jpg" onclick="switchRoomImg(this,'img-executive-suite')">
+          <img src="images/executive-suite/5.jpg" onclick="switchRoomImg(this,'img-executive-suite')">
+          <img src="images/executive-suite/6.jpg" onclick="switchRoomImg(this,'img-executive-suite')">
+        </div>
+        <a class="video-link" href="videos/executive-suite/1.mp4" target="_blank" style="margin-top:14px;display:inline-block;">
+          <span class="en-text">▶ Watch Video</span><span class="zh-text">▶ 观看视频</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="room-card">
+      <img id="img-deluxe-king-room" src="images/deluxe-king-room/1.jpg" alt="Deluxe King Room" data-index="0" onclick="openLightbox(deluxeKingRoomImages, parseInt(this.dataset.index))">
+      <div class="room-card-body">
+        <h3><span class="en-text">Deluxe King Room</span><span class="zh-text">悦享大床房</span></h3>
+        <div class="slogan"><span class="en-text">Comfort in Quietude</span><span class="zh-text">悦享舒适·静谧安眠</span></div>
+        <p class="en-text">A plush king bed in a quiet retreat — unwind and wake up fully recharged.</p>
+        <p class="zh-text">舒适大床搭配静音设计,褪去旅途疲惫,睡出满血状态。</p>
+        <div class="room-thumbs">
+          <img src="images/deluxe-king-room/1.jpg" class="active" onclick="switchRoomImg(this,'img-deluxe-king-room')">
+          <img src="images/deluxe-king-room/2.jpg" onclick="switchRoomImg(this,'img-deluxe-king-room')">
+          <img src="images/deluxe-king-room/3.jpg" onclick="switchRoomImg(this,'img-deluxe-king-room')">
+          <img src="images/deluxe-king-room/4.jpg" onclick="switchRoomImg(this,'img-deluxe-king-room')">
+          <img src="images/deluxe-king-room/5.jpg" onclick="switchRoomImg(this,'img-deluxe-king-room')">
+          <img src="images/deluxe-king-room/6.jpg" onclick="switchRoomImg(this,'img-deluxe-king-room')">
+        </div>
+        <a class="video-link" href="videos/deluxe-king-room/1.mp4" target="_blank" style="margin-top:14px;display:inline-block;">
+          <span class="en-text">▶ Watch Video</span><span class="zh-text">▶ 观看视频</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="room-card">
+      <img id="img-deluxe-twin-room" src="images/deluxe-twin-room/1.jpg" alt="Deluxe Twin Room" data-index="0" onclick="openLightbox(deluxeTwinRoomImages, parseInt(this.dataset.index))">
+      <div class="room-card-body">
+        <h3><span class="en-text">Deluxe Twin Room</span><span class="zh-text">豪华双床房</span></h3>
+        <div class="slogan"><span class="en-text">Space to Rest, Undisturbed</span><span class="zh-text">双床甄选·互不打扰</span></div>
+        <p class="en-text">Separate twin beds for shared comfort — ideal for friends or colleagues traveling together.</p>
+        <p class="zh-text">双床独立设置,朋友结伴或同事出差都能各自安睡,互不干扰。</p>
+        <div class="room-thumbs">
+          <img src="images/deluxe-twin-room/1.jpg" class="active" onclick="switchRoomImg(this,'img-deluxe-twin-room')">
+          <img src="images/deluxe-twin-room/2.jpg" onclick="switchRoomImg(this,'img-deluxe-twin-room')">
+          <img src="images/deluxe-twin-room/3.jpg" onclick="switchRoomImg(this,'img-deluxe-twin-room')">
+          <img src="images/deluxe-twin-room/4.jpg" onclick="switchRoomImg(this,'img-deluxe-twin-room')">
+          <img src="images/deluxe-twin-room/5.jpg" onclick="switchRoomImg(this,'img-deluxe-twin-room')">
+          <img src="images/deluxe-twin-room/6.jpg" onclick="switchRoomImg(this,'img-deluxe-twin-room')">
+        </div>
+        <a class="video-link" href="videos/deluxe-twin-room/1.mp4" target="_blank" style="margin-top:14px;display:inline-block;">
+          <span class="en-text">▶ Watch Video</span><span class="zh-text">▶ 观看视频</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="room-card">
+      <img id="img-premier-king-room" src="images/premier-king-room/1.jpg" alt="Premier King Room" data-index="0" onclick="openLightbox(premierKingRoomImages, parseInt(this.dataset.index))">
+      <div class="room-card-body">
+        <h3><span class="en-text">Premier King Room</span><span class="zh-text">豪华大床房</span></h3>
+        <div class="slogan"><span class="en-text">Curated Views, Refined Living</span><span class="zh-text">臻选视野·品质甄选</span></div>
+        <p class="en-text">Thoughtfully curated views and refined furnishings for a truly elevated stay.</p>
+        <p class="zh-text">精心甄选的开阔视野与考究陈设,尽显品质生活质感。</p>
+        <div class="room-thumbs">
+          <img src="images/premier-king-room/1.jpg" class="active" onclick="switchRoomImg(this,'img-premier-king-room')">
+          <img src="images/premier-king-room/2.jpg" onclick="switchRoomImg(this,'img-premier-king-room')">
+          <img src="images/premier-king-room/3.jpg" onclick="switchRoomImg(this,'img-premier-king-room')">
+          <img src="images/premier-king-room/4.jpg" onclick="switchRoomImg(this,'img-premier-king-room')">
+          <img src="images/premier-king-room/5.jpg" onclick="switchRoomImg(this,'img-premier-king-room')">
+          <img src="images/premier-king-room/6.jpg" onclick="switchRoomImg(this,'img-premier-king-room')">
+        </div>
+        <a class="video-link" href="videos/premier-king-room/1.mp4" target="_blank" style="margin-top:14px;display:inline-block;">
+          <span class="en-text">▶ Watch Video</span><span class="zh-text">▶ 观看视频</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="room-card">
+      <img id="img-kids-twin-family-room" src="images/kids-twin-family-room/1.jpg" alt="Kids Twin Family Room" data-index="0" onclick="openLightbox(kidsTwinFamilyRoomImages, parseInt(this.dataset.index))">
+      <div class="room-card-body">
+        <h3><span class="en-text">Kids' Twin Family Room</span><span class="zh-text">童趣-亲子双床房</span></h3>
+        <div class="slogan"><span class="en-text">Playful Themes, Worry-free Family Stay</span><span class="zh-text">儿童主题·带娃无忧</span></div>
+        <p class="en-text">A playful kids-themed room with dedicated space for parent-child fun — travel worry-free.</p>
+        <p class="zh-text">趣味儿童主题布置,专属亲子互动空间,带娃出行也能轻松自在。</p>
+        <div class="room-thumbs">
+          <img src="images/kids-twin-family-room/1.jpg" class="active" onclick="switchRoomImg(this,'img-kids-twin-family-room')">
+          <img src="images/kids-twin-family-room/2.jpg" onclick="switchRoomImg(this,'img-kids-twin-family-room')">
+          <img src="images/kids-twin-family-room/3.jpg" onclick="switchRoomImg(this,'img-kids-twin-family-room')">
+          <img src="images/kids-twin-family-room/4.jpg" onclick="switchRoomImg(this,'img-kids-twin-family-room')">
+          <img src="images/kids-twin-family-room/5.jpg" onclick="switchRoomImg(this,'img-kids-twin-family-room')">
+        </div>
+        <a class="video-link" href="videos/kids-twin-family-room/1.mp4" target="_blank" style="margin-top:14px;display:inline-block;">
+          <span class="en-text">▶ Watch Video</span><span class="zh-text">▶ 观看视频</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="room-card">
+      <img id="img-forest-bunk-family-room" src="images/forest-bunk-family-room/1.jpg" alt="Forest Bunk Family Room" data-index="0" onclick="openLightbox(forestBunkFamilyRoomImages, parseInt(this.dataset.index))">
+      <div class="room-card-body">
+        <h3><span class="en-text">Forest Bunk Family Room</span><span class="zh-text">森趣-亲子家庭房</span></h3>
+        <div class="slogan"><span class="en-text">Forest-themed Bunks, Kids' Favorite</span><span class="zh-text">森林上下铺·萌娃挚爱</span></div>
+        <p class="en-text">Forest-themed bunk beds spark kids' adventure dreams — a cozy home for the whole family.</p>
+        <p class="zh-text">森林主题上下铺床型,满足孩子的探险幻想,一家人共享温馨时光。</p>
+        <div class="room-thumbs">
+          <img src="images/forest-bunk-family-room/1.jpg" class="active" onclick="switchRoomImg(this,'img-forest-bunk-family-room')">
+          <img src="images/forest-bunk-family-room/2.jpg" onclick="switchRoomImg(this,'img-forest-bunk-family-room')">
+          <img src="images/forest-bunk-family-room/3.jpg" onclick="switchRoomImg(this,'img-forest-bunk-family-room')">
+          <img src="images/forest-bunk-family-room/4.jpg" onclick="switchRoomImg(this,'img-forest-bunk-family-room')">
+          <img src="images/forest-bunk-family-room/5.jpg" onclick="switchRoomImg(this,'img-forest-bunk-family-room')">
+          <img src="images/forest-bunk-family-room/6.jpg" onclick="switchRoomImg(this,'img-forest-bunk-family-room')">
+        </div>
+        <a class="video-link" href="videos/forest-bunk-family-room/1.mp4" target="_blank" style="margin-top:14px;display:inline-block;">
+          <span class="en-text">▶ Watch Video</span><span class="zh-text">▶ 观看视频</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="dining" class="gallery">
+  <div class="section-title">
+    <h2><span class="en-text">Dining</span><span class="zh-text">餐饮展示</span></h2>
+    <div class="en en-text">DINING</div>
+    <div class="line"></div>
+  </div>
+
+  <div class="about-intro">
+    <p class="en-text">
+      Located on the second floor, our elegant restaurant offers over a hundred comfortable seats in a bright,
+      welcoming space. Specializing in authentic Chaozhou cuisine and classic Cantonese flavors, the restaurant
+      selects fresh seasonal ingredients and follows traditional cooking techniques to bring out the true taste
+      of every dish. Here, every bite unfolds the rich culinary heritage of Chaozhou — proudly known as
+      China's "City of Gastronomy."
+    </p>
+    <p class="zh-text">
+      酒店二楼设有雅致餐厅,配备百余个舒适餐位,空间敞亮,氛围宜人。餐厅主打地道潮州菜与经典广府风味,
+      甄选新鲜时令食材,承袭传统烹饪技艺,力求每一道菜品都呈现正宗本味。在这里,味蕾随一盅一箸悠然展开,
+      让您在唇齿留香之间,真切感受"中国美食之都"潮州的独特魅力与饮食文化底蕴。
+    </p>
+  </div>
+
+  <div class="gallery-grid">
+    <a href="javascript:void(0)" onclick="openLightbox(diningImages, 0)" class="g-big"><img src="images/dining/restaurant.jpg" alt="Restaurant"></a>
+    <a href="javascript:void(0)" onclick="openLightbox(diningImages, 1)"><img src="images/dining/banquet.jpg" alt="Banquet"></a>
+    <a href="javascript:void(0)" onclick="openLightbox(diningImages, 2)"><img src="images/dining/dish-1.jpg" alt="Dish 1"></a>
+    <a href="javascript:void(0)" onclick="openLightbox(diningImages, 3)"><img src="images/dining/dish-2.jpg" alt="Dish 2"></a>
+    <a href="javascript:void(0)" onclick="openLightbox(diningImages, 4)"><img src="images/dining/dish-3.jpg" alt="Dish 3"></a>
+  </div>
+</section>
+
+<section id="culture" class="gallery">
+  <div class="section-title">
+    <h2><span class="en-text">Culture &amp; Cuisine</span><span class="zh-text">文旅与美食</span></h2>
+    <div class="en en-text">CULTURE &amp; CUISINE</div>
+    <div class="line"></div>
+  </div>
+
+  <div class="about-intro">
+    <p class="en-text">
+      Chaozhou is a nationally recognized historical and cultural city, celebrated as one of China's top
+      tourist destinations, a renowned culinary capital, and a hub of ceramic craftsmanship, with a rich
+      cultural heritage and abundant tourism resources. Chaozhou cuisine is famous far and wide — beef balls,
+      braised goose and oyster omelets are dishes travelers remember long after their visit. Local specialties
+      such as Phoenix Dancong tea, tofu-milk pastries and the Three Treasures of Chaozhou are also celebrated
+      both at home and abroad as beloved souvenirs.
+    </p>
+    <p class="zh-text">
+      潮州是国家历史文化名城,也是中国优秀旅游城市、美食之都、陶瓷之都,人文底蕴深厚,旅游资源丰富。
+      潮州菜远近闻名,牛肉丸、卤鹅、蚝仔烙等经典美食令人回味无穷。此外,凤凰单枞茶、腐乳饼、潮州三宝等特产
+      也享誉海内外,是备受青睐的手信佳品。
+    </p>
+  </div>
+
+  <div class="culture-carousel-wrap">
+    <div class="culture-carousel" id="cultureCarousel">
+      <div class="culture-item" onclick="cultureItemClick(this,0)">
+        <img src="images/culture/guangji-bridge.jpg" alt="Guangji Bridge">
+        <div class="culture-caption"><span class="en-text">Guangji Bridge</span><span class="zh-text">广济桥</span></div>
+      </div>
+      <div class="culture-item" onclick="cultureItemClick(this,1)">
+        <img src="images/culture/paifang-street.jpg" alt="Paifang Street">
+        <div class="culture-caption"><span class="en-text">Paifang Street</span><span class="zh-text">牌坊街</span></div>
+      </div>
+      <div class="culture-item" onclick="cultureItemClick(this,2)">
+        <img src="images/culture/kaiyuan-temple.jpg" alt="Kaiyuan Temple">
+        <div class="culture-caption"><span class="en-text">Kaiyuan Temple</span><span class="zh-text">开元寺</span></div>
+      </div>
+      <div class="culture-item" onclick="cultureItemClick(this,3)">
+        <img src="images/culture/han-wengong-temple.jpg" alt="Han Wengong Temple">
+        <div class="culture-caption"><span class="en-text">Han Wengong Temple</span><span class="zh-text">韩文公祠</span></div>
+      </div>
+      <div class="culture-item" onclick="cultureItemClick(this,4)">
+        <img src="images/culture/chaozhou-west-lake.jpg" alt="Chaozhou West Lake">
+        <div class="culture-caption"><span class="en-text">Chaozhou West Lake</span><span class="zh-text">潮州西湖</span></div>
+      </div>
+      <div class="culture-item" onclick="cultureItemClick(this,5)">
+        <img src="images/culture/longhu-ancient-village.jpg" alt="Longhu Ancient Village">
+        <div class="culture-caption"><span class="en-text">Longhu Ancient Village</span><span class="zh-text">龙湖古寨</span></div>
+      </div>
+      <div class="culture-item" onclick="cultureItemClick(this,6)">
+        <img src="images/culture/yingge-dance.jpg" alt="Yingge Dance">
+        <div class="culture-caption"><span class="en-text">Yingge Dance</span><span class="zh-text">英歌舞</span></div>
+      </div>
+      <div class="culture-item" onclick="cultureItemClick(this,7)">
+        <img src="images/culture/chaozhou-gong-drum.jpg" alt="Chaozhou Gong and Drum">
+        <div class="culture-caption"><span class="en-text">Chaozhou Gong &amp; Drum</span><span class="zh-text">潮州大锣鼓</span></div>
+      </div>
+      <div class="culture-item" onclick="cultureItemClick(this,8)">
+        <img src="images/culture/lu-goose.jpg" alt="Braised Goose">
+        <div class="culture-caption"><span class="en-text">Braised Goose</span><span class="zh-text">卤鹅</span></div>
+      </div>
+      <div class="culture-item" onclick="cultureItemClick(this,9)">
+        <img src="images/culture/beef-balls.jpg" alt="Beef Balls">
+        <div class="culture-caption"><span class="en-text">Beef Balls</span><span class="zh-text">牛肉丸</span></div>
+      </div>
+      <div class="culture-item" onclick="cultureItemClick(this,10)">
+        <img src="images/culture/phoenix-dancong-tea.jpg" alt="Phoenix Dancong Tea">
+        <div class="culture-caption"><span class="en-text">Phoenix Dancong Tea</span><span class="zh-text">凤凰单枞</span></div>
+      </div>
+      <div class="culture-item" onclick="cultureItemClick(this,11)">
+        <img src="images/culture/three-treasures.jpg" alt="Chaozhou Three Treasures">
+        <div class="culture-caption"><span class="en-text">Chaozhou Three Treasures</span><span class="zh-text">潮州三宝</span></div>
+      </div>
+      <div class="culture-item" onclick="cultureItemClick(this,12)">
+        <img src="images/culture/chaozhou-wood-carving.jpg" alt="Chaozhou Wood Carving">
+        <div class="culture-caption"><span class="en-text">Chaozhou Wood Carving</span><span class="zh-text">潮州木雕</span></div>
+      </div>
+    </div>
+    <p class="culture-hint">
+      <span class="en-text">Swipe or click to explore</span>
+      <span class="zh-text">左右滑动或点击图片查看更多</span>
+    </p>
+  </div>
+</section>
+
+<section id="facilities">
+  <div class="section-title">
+    <h2><span class="en-text">Facilities &amp; Services</span><span class="zh-text">设施与服务</span></h2>
+    <div class="en en-text">FACILITIES</div>
+    <div class="line"></div>
+  </div>
+
+  <ul class="facilities-list">
+    <li><span class="ico">📶</span><span class="en-text">Free Wi-Fi</span><span class="zh-text">免费WiFi</span></li>
+    <li><span class="ico">🚗</span><span class="en-text">Free Parking</span><span class="zh-text">免费停车场</span></li>
+    <li><span class="ico">🍽</span><span class="en-text">In-house Restaurant</span><span class="zh-text">特色餐厅</span></li>
+    <li><span class="ico">🍸</span><span class="en-text">Complimentary Mini Bar</span><span class="zh-text">免费迷你吧</span></li>
+    <li><span class="ico">🤖</span><span class="en-text">Robot Room Delivery</span><span class="zh-text">机器人送餐服务</span></li>
+    <li><span class="ico">🎠</span><span class="en-text">Kids' Playground</span><span class="zh-text">儿童乐园</span></li>
+    <li><span class="ico">💪</span><span class="en-text">Free Gym</span><span class="zh-text">免费健身室</span></li>
+    <li><span class="ico">🚙</span><span class="en-text">EV Charging</span><span class="zh-text">充电桩</span></li>
+    <li><span class="ico">🤝</span><span class="en-text">Meeting Room</span><span class="zh-text">会议室</span></li>
+    <li><span class="ico">📚</span><span class="en-text">Book Bar</span><span class="zh-text">书吧</span></li>
+    <li><span class="ico">☕</span><span class="en-text">Coffee Bar</span><span class="zh-text">咖啡吧</span></li>
+    <li><span class="ico">🧺</span><span class="en-text">Self-Service Laundry</span><span class="zh-text">自助洗衣房</span></li>
+    <li><span class="ico">🛎</span><span class="en-text">Concierge Service</span><span class="zh-text">礼宾服务</span></li>
+    <li><span class="ico">🧳</span><span class="en-text">Luggage Storage</span><span class="zh-text">行李寄存</span></li>
+    <li><span class="ico">⏰</span><span class="en-text">Wake-up Call</span><span class="zh-text">叫醒服务</span></li>
+    <li><span class="ico">🏪</span><span class="en-text">Convenience Store</span><span class="zh-text">自助超市</span></li>
+  </ul>
+</section>
+
+<section id="location" class="location">
+  <div class="section-title">
+    <h2><span class="en-text">Contact Us</span><span class="zh-text">联系我们</span></h2>
+    <div class="en en-text">CONTACT</div>
+    <div class="line"></div>
+  </div>
+
+  <div class="loc-wrap">
+    <div class="loc-info">
+      <h3><span class="en-text">Get in Touch</span><span class="zh-text">联系方式</span></h3>
+      <p>
+        <span class="en-text">Address: Hongde Building, NE Corner of Chaozhou Ave &amp; Beizhan East Rd, Xiangqiao District, Chaozhou</span>
+        <span class="zh-text">地址:广东省潮州市湘桥区潮州大道与北站东路交界处东北侧弘德大厦</span>
+      </p>
+      <p><span class="en-text">Tel: </span><span class="zh-text">电话:</span>+86 0768-3883333</p>
+      <p><span class="en-text">Email: </span><span class="zh-text">邮箱:</span>yuyu20240720@163.com</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><span class="en-text">Chaozhou Yuyu Hotel</span><span class="zh-text">潮州愉羽酒店</span></p>
+  <div class="foot-links">
+    <a href="#about"><span class="en-text">About</span><span class="zh-text">简介</span></a>
+    <a href="#rooms"><span class="en-text">Rooms</span><span class="zh-text">房型</span></a>
+    <a href="#location"><span class="en-text">Contact</span><span class="zh-text">联系</span></a>
+  </div>
+  <p>&copy; 2026 Chaozhou Yuyu Hotel. All Rights Reserved.</p>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <img id="lightbox-img" src="" alt="" onclick="handleLightboxClick(event)">
+</div>
+
+<script>
+function toggleLang(){
+  document.body.classList.toggle('lang-zh');
+}
+
+var lightboxImages = [];
+var lightboxIndex = 0;
+
+var galleryImages = [
+  'images/lobby/1.jpg','images/hero/1.jpg','images/restaurant/1.jpg',
+  'images/meeting-room/1.jpg','images/book-bar/1.jpg','images/coffee-bar/1.jpg',
+  'images/laundry-room/1.jpg','images/kids-play-area/1.jpg','images/guest-lounge/1.jpg'
+];
+var executiveSuiteImages = ['images/executive-suite/1.jpg','images/executive-suite/2.jpg','images/executive-suite/3.jpg','images/executive-suite/4.jpg','images/executive-suite/5.jpg','images/executive-suite/6.jpg'];
+var deluxeKingRoomImages = ['images/deluxe-king-room/1.jpg','images/deluxe-king-room/2.jpg','images/deluxe-king-room/3.jpg','images/deluxe-king-room/4.jpg','images/deluxe-king-room/5.jpg','images/deluxe-king-room/6.jpg'];
+var deluxeTwinRoomImages = ['images/deluxe-twin-room/1.jpg','images/deluxe-twin-room/2.jpg','images/deluxe-twin-room/3.jpg','images/deluxe-twin-room/4.jpg','images/deluxe-twin-room/5.jpg','images/deluxe-twin-room/6.jpg'];
+var premierKingRoomImages = ['images/premier-king-room/1.jpg','images/premier-king-room/2.jpg','images/premier-king-room/3.jpg','images/premier-king-room/4.jpg','images/premier-king-room/5.jpg','images/premier-king-room/6.jpg'];
+var kidsTwinFamilyRoomImages = ['images/kids-twin-family-room/1.jpg','images/kids-twin-family-room/2.jpg','images/kids-twin-family-room/3.jpg','images/kids-twin-family-room/4.jpg','images/kids-twin-family-room/5.jpg'];
+var forestBunkFamilyRoomImages = ['images/forest-bunk-family-room/1.jpg','images/forest-bunk-family-room/2.jpg','images/forest-bunk-family-room/3.jpg','images/forest-bunk-family-room/4.jpg','images/forest-bunk-family-room/5.jpg','images/forest-bunk-family-room/6.jpg'];
+var diningImages = [
+  'images/dining/restaurant.jpg','images/dining/banquet.jpg',
+  'images/dining/dish-1.jpg','images/dining/dish-2.jpg','images/dining/dish-3.jpg'
+];
+var cultureImages = [
+  'images/culture/guangji-bridge.jpg','images/culture/paifang-street.jpg','images/culture/kaiyuan-temple.jpg',
+  'images/culture/han-wengong-temple.jpg','images/culture/chaozhou-west-lake.jpg','images/culture/longhu-ancient-village.jpg',
+  'images/culture/yingge-dance.jpg','images/culture/chaozhou-gong-drum.jpg','images/culture/lu-goose.jpg',
+  'images/culture/beef-balls.jpg','images/culture/phoenix-dancong-tea.jpg','images/culture/three-treasures.jpg',
+  'images/culture/chaozhou-wood-carving.jpg'
+];
+
+function switchRoomImg(thumb, mainImgId){
+  var mainImg = document.getElementById(mainImgId);
+  mainImg.src = thumb.src;
+  var siblings = Array.from(thumb.parentElement.querySelectorAll('img'));
+  siblings.forEach(function(img){ img.classList.remove('active'); });
+  thumb.classList.add('active');
+  mainImg.dataset.index = siblings.indexOf(thumb);
+}
+
+function openLightbox(images, index){
+  lightboxImages = images;
+  lightboxIndex = index || 0;
+  document.getElementById('lightbox-img').src = lightboxImages[lightboxIndex];
+  document.getElementById('lightbox').classList.add('active');
+}
+function handleLightboxClick(e){
+  var img = e.target;
+  var rect = img.getBoundingClientRect();
+  var clickX = e.clientX - rect.left;
+  if(clickX < rect.width / 2){
+    lightboxIndex = (lightboxIndex - 1 + lightboxImages.length) % lightboxImages.length;
+  } else {
+    lightboxIndex = (lightboxIndex + 1) % lightboxImages.length;
+  }
+  document.getElementById('lightbox-img').src = lightboxImages[lightboxIndex];
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('active');
+}
+
+/* Culture Carousel logic */
+var carousel = document.getElementById('cultureCarousel');
+var carouselItems = carousel ? Array.from(carousel.querySelectorAll('.culture-item')) : [];
+
+function updateCarouselFocus(){
+  var containerCenter = carousel.getBoundingClientRect().left + carousel.getBoundingClientRect().width / 2;
+  var closestItem = null;
+  var closestDist = Infinity;
+  carouselItems.forEach(function(item){
+    var rect = item.getBoundingClientRect();
+    var itemCenter = rect.left + rect.width / 2;
+    var dist = Math.abs(itemCenter - containerCenter);
+    if(dist < closestDist){
+      closestDist = dist;
+      closestItem = item;
+    }
+  });
+  carouselItems.forEach(function(item){
+    item.classList.toggle('center', item === closestItem);
+  });
+}
+
+if(carousel){
+  carousel.addEventListener('scroll', function(){
+    window.requestAnimationFrame(updateCarouselFocus);
+  });
+  window.addEventListener('resize', updateCarouselFocus);
+  window.addEventListener('load', function(){
+    setTimeout(updateCarouselFocus, 100);
+  });
+}
+
+function cultureItemClick(item, index){
+  if(item.classList.contains('center')){
+    openLightbox(cultureImages, index);
+  } else {
+    item.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+  }
+}
+</script>
+
+</body>
+</html>
